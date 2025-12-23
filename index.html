@@ -1,0 +1,127 @@
+‎<!DOCTYPE html>
+‎<html lang="pt-br">
+‎<head>
+‎<meta charset="UTF-8">
+‎<title>Carta que nunca foi enviada</title>
+‎
+‎<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+‎
+‎<style>
+‎body {
+‎  margin: 0;
+‎  height: 100vh;
+‎  background: black;
+‎  font-family: 'Playfair Display', serif;
+‎  color: white;
+‎}
+‎
+‎#login, #carta {
+‎  position: absolute;
+‎  inset: 0;
+‎  display: flex;
+‎  align-items: center;
+‎  justify-content: center;
+‎}
+‎
+‎#login {
+‎  background: url("https://images.unsplash.com/photo-1519681393784-d120267933ba") center/cover no-repeat;
+‎}
+‎
+‎.box {
+‎  background: rgba(0,0,0,0.75);
+‎  padding: 30px;
+‎  border-radius: 10px;
+‎  text-align: center;
+‎}
+‎
+‎input {
+‎  padding: 10px;
+‎  margin-top: 10px;
+‎}
+‎
+‎button {
+‎  margin-top: 10px;
+‎  padding: 10px 20px;
+‎  cursor: pointer;
+‎}
+‎
+‎#carta {
+‎  display: none;
+‎  background: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee") center/cover fixed;
+‎  padding: 40px;
+‎}
+‎
+‎.conteudo {
+‎  background: rgba(0,0,0,0.75);
+‎  padding: 40px;
+‎  max-width: 800px;
+‎  border-radius: 10px;
+‎}
+‎</style>
+‎</head>
+‎
+‎<body>
+‎
+‎<!-- TELA DE SENHA -->
+‎<div id="login">
+‎  <div class="box">
+‎    <h2>Só quem viveu sabe.</h2>
+‎    <p>Carta que nunca foi enviada.</p>
+‎    <input type="password" id="senha" placeholder="Senha">
+‎    <br>
+‎    <button onclick="entrar()">Entrar</button>
+‎  </div>
+‎</div>
+‎
+‎<!-- CARTA -->
+‎<div id="carta">
+‎  <audio id="musica" loop>
+‎    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9c6f7c7d8a.mp3">
+‎  </audio>
+‎
+‎  <div class="conteudo">
+‎    <h1 style="text-align:center;">Carta que nunca foi enviada</h1>
+‎
+‎    <p>
+‎    Eu te amo.<br><br>
+‎    Sinto sua falta nos dias simples, Nicolas, você é o homem da minha vida! sinto sdds de vc nos dias vazios,
+‎    e nos dias em que sorrio sem motivo.
+‎    </p>
+‎
+‎    <p>
+‎    Amor não some.<br>
+‎    Saudade não passa.<br>
+‎    Verdade não vira pouco.
+‎    </p>
+‎
+‎    <p>
+‎    Se algum dia você esquecer,
+‎    se o mundo ficar pesado,
+‎    lembra disso:
+‎    eu estarei aqui por você.
+‎    </p>
+‎
+‎    <p>
+‎    Pelo resto da minha vida. Você sempre será e vai ser o homem da minha vida, o homem que quero para ser o pai dos meus filhos... Eu te amo meu amor! 
+‎    </p>
+‎
+‎    <p><strong>Você.</strong></p>
+‎  </div>
+‎</div>
+‎
+‎<script>
+‎function entrar() {
+‎  if (document.getElementById("senha").value === "1807") {
+‎    document.getElementById("login").style.display = "none";
+‎    document.getElementById("carta").style.display = "flex";
+‎    const m = document.getElementById("musica");
+‎    m.volume = 0.2;
+‎    m.play();
+‎  } else {
+‎    alert("Acesso negado.");
+‎  }
+‎}
+‎</script>
+‎
+‎</body>
+‎</html>
