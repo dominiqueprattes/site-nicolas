@@ -1,174 +1,144 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Para Nicolas</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-
+<title>Carta para Nicolas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cormorant+Garamond&display=swap" rel="stylesheet">
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-    url('https://i.imgur.com/Q8nZ9xG.jpg') center/cover no-repeat fixed;
-  color: white;
-  min-height: 100vh;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Cormorant Garamond', serif; color:white; background:black; overflow-x:hidden;}
+
+/* TELA DE SENHA */
+#senhaTela{
+  position:fixed; inset:0;
+  background:url('nicolas.jpg') center/cover no-repeat;
+  display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center;
 }
 
-/* brilho fake */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05), transparent 40%);
-  animation: brilho 6s infinite alternate;
-  pointer-events: none;
+.overlay{
+  background:rgba(0,0,0,0.6); padding:40px; border-radius:12px; box-shadow:0 0 30px rgba(255,255,255,0.2);
 }
 
-@keyframes brilho {
-  from { opacity: 0.4; }
-  to { opacity: 0.8; }
-}
-
-/* LOGIN */
-#login {
-  max-width: 380px;
-  margin: 120px auto;
-  padding: 40px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 22px;
-  text-align: center;
-  box-shadow: 0 0 30px rgba(0,0,0,0.8);
-  animation: fadeIn 2s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-#login h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-#login p {
-  font-size: 14px;
-  opacity: 0.85;
-}
-
-#login input {
-  width: 80%;
-  padding: 10px;
-  border-radius: 12px;
-  border: none;
-  outline: none;
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-#login button {
-  margin-top: 20px;
-  padding: 10px 30px;
-  border-radius: 14px;
-  border: none;
-  background: black;
-  color: white;
-  font-size: 14px;
-}
-
-/* ESCUDO */
-#santos {
-  width: 38px;
-  margin-bottom: 15px;
-}
+.overlay h1{font-family:'Playfair Display', serif; margin-bottom:10px;}
+input{padding:12px; border:none; border-radius:6px; font-size:18px; text-align:center;}
+button{margin-top:10px; padding:10px 25px; border:none; border-radius:6px; background:#fff; cursor:pointer; font-weight:bold;}
 
 /* CARTA */
-#letter {
-  display: none;
-  max-width: 650px;
-  margin: 80px auto;
-  background: rgba(0,0,0,0.65);
-  padding: 45px;
-  border-radius: 25px;
-  font-family: 'Playfair Display', serif;
-  font-size: 19px;
-  line-height: 1.8;
-  animation: fadeIn 3s ease;
-}
+#conteudo{display:none; min-height:100vh; background:url('dominique.jpg') center/cover no-repeat fixed; padding:80px 15px;}
+.carta{max-width:800px; margin:auto; background:rgba(0,0,0,0.75); padding:50px; border-radius:12px; animation:abrir 2s ease;}
+@keyframes abrir{from{opacity:0;transform:scale(0.95);} to{opacity:1;transform:scale(1);}}
+h2{text-align:center; font-family:'Playfair Display', serif; margin-bottom:30px;}
+p{margin-bottom:20px; line-height:1.8; font-size:20px;}
+.cursor{display:inline-block; width:2px; background:#fff; animation:pisca 1s infinite;}
+@keyframes pisca{0%,50%,100%{opacity:1}25%,75%{opacity:0}}
 </style>
 </head>
-
 <body>
 
-<div id="login">
-  <img id="santos" src="https://upload.wikimedia.org/wikipedia/commons/1/15/Santos_Logo.png">
-  <h1>Santos Futebol Clube</h1>
-  <p>Algumas coisas só quem sente entende</p>
-
-  <input type="password" id="password" placeholder="Digite a senha">
-  <br>
-  <button onclick="checkPassword()">Entrar</button>
+<!-- TELA DE SENHA -->
+<div id="senhaTela">
+  <div class="overlay">
+    <h1>Só quem viveu sabe.</h1>
+    <input type="password" id="senha" placeholder="Digite a senha">
+    <br>
+    <button onclick="verificar()">Entrar</button>
+  </div>
 </div>
 
-<audio id="music">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0c8f2a6bba.mp3" type="audio/mpeg">
-</audio>
-
-<div id="letter"></div>
+<!-- CONTEÚDO -->
+<div id="conteudo">
+  <audio id="musica" src="violino.mp3" loop></audio>
+  <div class="carta">
+    <h2>Nicolas…</h2>
+    <div id="texto"></div><span class="cursor"></span>
+  </div>
+</div>
 
 <script>
-const correctPassword = "1807";
-
-const message = `
-
-Nicolas.
-
-Eu fiz isso com calma, pensando em você.
-Sem pressa, sem exagero, só verdade.
-
-Eu quero que você saiba que eu te amo.
-Eu sinto sua falta, sinto sua presença até quando você não está.
-
-Você é muito importante pra mim, mais do que talvez eu consiga explicar.
-Existem pessoas que passam.
-
-Desde quando vc entrou na minha vida, tudo mudou. e agora não consigo mais viver sem você, não que seja dependência emocional, mas pq em vc eu encontro a paz e o amor.
-
-No final de tudo, o que eu sinto é simples e forte:
-eu amo você.
-
-Você é o homem da minha vida, e o homem que eu quero que seja o pai dos meus filhos. quero ter o nosso mini nk e assistir todos os dias vc cuidando do nosso filho e ensinando ele a jogar bola! quero olhar para o nosso mini nk e ver seus olhinhos nele! 
-
-Eu te amo, Nicolas.
-`;
-
-let index = 0;
-
-function checkPassword() {
-  const input = document.getElementById("password").value;
-  if (input === correctPassword) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("letter").style.display = "block";
-    document.getElementById("music").play();
-    typeWriter();
+const senhaCorreta="1807";
+function verificar(){
+  if(document.getElementById("senha").value===senhaCorreta){
+    document.getElementById("senhaTela").style.display="none";
+    document.getElementById("conteudo").style.display="block";
+    document.getElementById("musica").volume=0.25;
+    document.getElementById("musica").play();
+    digitar();
   } else {
     alert("Senha incorreta.");
   }
 }
 
-function typeWriter() {
-  if (index < message.length) {
-    document.getElementById("letter").innerHTML += message.charAt(index);
-    index++;
-    setTimeout(typeWriter, 45);
+// TEXTO COMPLETO
+const texto=`Nicolas…
+Eu não sei muito bem por onde começar, mas preciso colocar tudo para fora. Às vezes, guardar as coisas dentro do peito faz parecer que o mundo está apertando, e eu tô tentando respirar entre tudo isso, entre a saudade, o silêncio e os pensamentos que insistem em voltar sempre para você.
+A verdade é que eu sinto sua falta em tantos detalhes que eu mesma me assusto. Sinto falta do jeito que você falava comigo, da sua voz, das nossas conversas que iam de brincadeiras bobas até assuntos sérios sobre nós dois. Sinto falta da segurança que eu sentia quando você dizia que estava ali. Sinto falta de saber que, de alguma forma, nós dois éramos um no meio de tanta bagunça.
+E mesmo agora, com a distância, com o término, com o silêncio… meu coração continua preso a você como se estivesse tentando lembrar o caminho de casa. E é isso que você sempre foi para mim: um lar. Mesmo quando tudo parecia confuso, mesmo quando o mundo lá fora estava difícil, você ainda era o lugar onde minha alma descansava.
+Não é fácil admitir isso, mas… você ainda é o homem que eu escolheria de novo, se a vida me desse mais mil chances. Não porque eu sou boba, não porque eu esteja perdida, mas porque eu sinto. Sinto uma coisa que eu nunca senti por ninguém. Sinto algo tão verdadeiro que não existe comparação.
+Eu sei que você está passando por muitas coisas. Eu sei que sua cabeça está cheia, sua vida está confusa, que existem dores, lutas, responsabilidades, sombras, medos, eu sei. Eu vi, eu senti, eu entendi. E mesmo quando você achava que estava sozinho, eu estava ali. Sempre estive. E mesmo agora, mesmo com o fim, eu continuo aqui, desejando que você fique bem, que encontre sua paz, que arrume tudo o que precisa arrumar dentro de você.
+Mas isso não muda a outra verdade, aquela que fica presa no meu peito:
+eu queria você de volta.
+Não porque você é perfeito, você não é, e nem precisa ser.
+Eu também não sou.
+A gente erra, a gente briga, a gente se machuca sem querer.
+Mas mesmo assim, você é o único que meu coração escolheu de verdade.
+E eu sinto saudade dos nossos planos.
+Do jeito que a gente falava sobre futuro como quem fala sobre algo que já é certeza.
+Sobre casar na cachoeira, sobre família, sobre filhos correndo pela casa.
+Eu ainda consigo imaginar tudo isso com uma clareza que machuca, mas ao mesmo tempo acalenta… porque foi real para mim. Ainda é.
+Eu ainda imagino você ensinando nosso filho a jogar bola. Imagino você com a nossa menininha no colo, deixando ela te maquiar porque você sempre foi esse tipo de homem, o tipo que tem um coração bom, mesmo quando o mundo tenta te endurecer. Eu ainda vejo o seu sorriso nessas pequenas cenas que eu criei na cabeça. E, por Deus, eu queria tanto que elas fossem verdade algum dia.
+Eu sinto sua falta de um jeito que não consigo explicar.
+Tem dias que eu acordo esperando sua mensagem.
+Tem noites que eu deito e fico lembrando de tudo o que a gente viveu.
+Tem momentos em que a saudade bate tão forte que parece que meu peito não vai aguentar.
+Eu queria poder olhar nos seus olhos e falar tudo isso.
+Queria poder te abraçar e sentir que tudo está bem.
+Queria ter a chance de te mostrar que, apesar de tudo, o meu amor por você continua firme, puro, vivo.
+Mesmo com distância.
+Mesmo com silêncio.
+Mesmo com dor.
+Eu te amo, Nicolas.
+De um jeito que ultrapassa qualquer explicação.
+De um jeito que nem eu mesma imaginava ser capaz de sentir.
+De um jeito que não acaba só porque a vida ficou difícil.
+Eu vou esperar você.
+Sem pressão.
+Sem cobrança.
+Sem exigir nada.
+Vou esperar porque meu amor por você sempre foi sincero. Porque eu acredito em você, na sua força, na sua luz, na pessoa que você é, mesmo quando você não acredita.
+Eu quero te ver vencer.
+Quero ver você organizar sua vida, conquistar seus sonhos, superar cada fase difícil.
+Quero ver você brilhar do jeito que você sempre mereceu.
+E queria poder estar ao seu lado quando tudo isso acontecer.
+E se algum dia, seja amanhã, daqui um mês, ou daqui um ano, você olhar para trás e perceber que ainda existe um espaço para mim na sua vida… saiba que meu coração vai estar aqui, intacto, esperando para te receber.
+Mas a maior verdade de todas é esta:
+eu estou com saudade.
+Muita.
+Daquelas que corrói, que aperta, que queima.
+Daquelas que fazem a gente fechar os olhos e tentar lembrar da sensação do toque, do cheiro, da voz, do jeito, de tudo.
+Você foi um capítulo enorme na minha vida.
+Um capítulo que eu não quero apagar, mesmo que doa.
+Você marcou minha alma de um jeito que só quem viveu entende.
+E por mais que o mundo diga para seguir em frente, meu coração ainda segura sua mão no silêncio, como se tivesse medo de te perder completamente.
+Eu não sei o que vai acontecer entre nós.
+Não sei o destino reserva, não sei qual caminho a vida vai escolher.
+Mas sei do que eu sinto.
+E isso… isso é inabalável.
+Você ainda é o amor da minha vida.
+E eu ainda te carrego aqui dentro, no lugar mais sensível, mais profundo, mais verdadeiro.
+Com todo o amor que ainda existe em mim,
+e com toda a saudade que eu tento esconder…
+Eu sinto sua falta, Nicolas.
+Muito mais do que eu consigo dizer.`;
+
+let i=0;
+function digitar(){
+  if(i<texto.length){
+    document.getElementById("texto").innerHTML+=texto.charAt(i);
+    i++;
+    setTimeout(digitar,35);
   }
 }
 </script>
-
 </body>
 </html>
+
