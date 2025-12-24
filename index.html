@@ -2,126 +2,170 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Carta que nunca foi enviada</title>
+<title>Para Nicolas</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-html, body {
+body {
   margin: 0;
-  height: 100%;
-  font-family: 'Playfair Display', serif;
-}
-
-.screen {
-  display: none;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+    url('https://i.imgur.com/Q8nZ9xG.jpg') center/cover no-repeat fixed;
   color: white;
+  min-height: 100vh;
 }
 
+/* brilho fake */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05), transparent 40%);
+  animation: brilho 6s infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes brilho {
+  from { opacity: 0.4; }
+  to { opacity: 0.8; }
+}
+
+/* LOGIN */
 #login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  max-width: 380px;
+  margin: 120px auto;
+  padding: 40px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 22px;
   text-align: center;
-  background-image: url('senha.jpg');
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  animation: fadeIn 2s ease;
 }
 
-#letter {
-  padding: 60px;
-  background-image: url('carta.jpg');
-  overflow-y: auto;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-input {
+#login h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+#login p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+#login input {
+  width: 80%;
   padding: 10px;
-  font-size: 16px;
-  margin-top: 10px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  margin-top: 15px;
+  font-size: 14px;
 }
 
-button {
-  margin-top: 10px;
-  padding: 8px 20px;
-  cursor: pointer;
+#login button {
+  margin-top: 20px;
+  padding: 10px 30px;
+  border-radius: 14px;
+  border: none;
+  background: black;
+  color: white;
+  font-size: 14px;
 }
 
-h1 {
-  font-size: 32px;
+/* ESCUDO */
+#santos {
+  width: 38px;
+  margin-bottom: 15px;
 }
 
-#text {
-  font-size: 20px;
-  max-width: 800px;
+/* CARTA */
+#letter {
+  display: none;
+  max-width: 650px;
+  margin: 80px auto;
+  background: rgba(0,0,0,0.65);
+  padding: 45px;
+  border-radius: 25px;
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
   line-height: 1.8;
-  white-space: pre-wrap;
+  animation: fadeIn 3s ease;
 }
 </style>
 </head>
 
 <body>
 
-<!-- TELA DA SENHA -->
-<div id="login" class="screen">
-  <h1>Só quem viveu sabe.</h1>
-  <p>Carta que nunca foi enviada.</p>
-  <input type="password" id="password" placeholder="Senha">
-  <button onclick="check()">Entrar</button>
+<div id="login">
+  <img id="santos" src="https://upload.wikimedia.org/wikipedia/commons/1/15/Santos_Logo.png">
+  <h1>Santos Futebol Clube</h1>
+  <p>Algumas coisas só quem sente entende</p>
+
+  <input type="password" id="password" placeholder="Digite a senha">
+  <br>
+  <button onclick="checkPassword()">Entrar</button>
 </div>
 
-<!-- CARTA -->
-<div id="letter" class="screen">
-  <div id="text"></div>
-</div>
+<audio id="music">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0c8f2a6bba.mp3" type="audio/mpeg">
+</audio>
+
+<div id="letter"></div>
 
 <script>
-document.getElementById("login").style.display = "flex";
+const correctPassword = "1807";
 
-function check() {
-  const pass = document.getElementById("password").value;
-  if (pass === "1807") {
+const message = `
+
+Nicolas.
+
+Eu fiz isso com calma, pensando em você.
+Sem pressa, sem exagero, só verdade.
+
+Eu quero que você saiba que eu te amo.
+Eu sinto sua falta, sinto sua presença até quando você não está.
+
+Você é muito importante pra mim, mais do que talvez eu consiga explicar.
+Existem pessoas que passam.
+
+Desde quando vc entrou na minha vida, tudo mudou. e agora não consigo mais viver sem você, não que seja dependência emocional, mas pq em vc eu encontro a paz e o amor.
+
+No final de tudo, o que eu sinto é simples e forte:
+eu amo você.
+
+Você é o homem da minha vida, e o homem que eu quero que seja o pai dos meus filhos. quero ter o nosso mini nk e assistir todos os dias vc cuidando do nosso filho e ensinando ele a jogar bola! quero olhar para o nosso mini nk e ver seus olhinhos nele! 
+
+Eu te amo, Nicolas.
+`;
+
+let index = 0;
+
+function checkPassword() {
+  const input = document.getElementById("password").value;
+  if (input === correctPassword) {
     document.getElementById("login").style.display = "none";
     document.getElementById("letter").style.display = "block";
+    document.getElementById("music").play();
     typeWriter();
   } else {
     alert("Senha incorreta.");
   }
 }
 
-const message = `
-Eu te amo.
-
-Sinto sua falta nos dias simples.
-Nos dias vazios.
-Nos dias em que sorrio sem motivo
-e nos dias em que não consigo sorrir.
-
-Amor não some.
-Saudade não passa.
-Verdade não vira pouco.
-
-Se algum dia você esquecer,
-se o mundo pesar,
-lembra disso:
-eu estarei aqui por você.
-
-Pelo resto da minha vida.
-Você sempre foi,
-é,
-e sempre será
-o homem da minha vida.
-
-Você.
-`;
-
-let i = 0;
 function typeWriter() {
-  if (i < message.length) {
-    document.getElementById("text").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, 50);
+  if (index < message.length) {
+    document.getElementById("letter").innerHTML += message.charAt(index);
+    index++;
+    setTimeout(typeWriter, 45);
   }
 }
 </script>
